@@ -15,13 +15,13 @@ NPM translate facilitates the managements of the translation files for developer
 - Page package
   - list of translations of a package **DONE**
   - edit a translations **DONE**
-  - add/delete a translations (admin) **DONE**
+  - add/delete a translations (admin + collaborators) **DONE**
 - Page package config
   - add/delete language (admin)
-  - edit the admin list (admin)
+  - edit the collaborators list (admin)
   - publish the translations (admin)
 - Page profil
 
 
-Utiliser variable environnement pour le scope et les langs
-Passer les variables name de pack et key de lang en _id
+- Utiliser variable environnement pour le scope et les langs
+- Passer les variables name de pack et key de lang en _id

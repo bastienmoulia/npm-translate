@@ -1,9 +1,0 @@
-<form [formGroup]="addForm" (ngSubmit)="addPack()">
-  <label>Name</label>
-  <input type="text" formControlName="name">
-  <label>Lang</label>
-  <select formControlName="lang">
-    <option *ngFor="let lang of langs" [value]="lang.key">{{lang.name}}</option>
-  </select>
-  <button type="submit">Add</button>
-</form>

@@ -1,0 +1,14 @@
+<div>
+  <header>
+    <h2>{{pack ? pack.name : 'No package with this name'}}</h2>
+    <a [routerLink]="['/']">Back</a>
+  </header>
+  <div *ngIf="pack">
+    <translations-list></translations-list>
+    <div *ngIf="isAdmin">
+      <hr>
+      <code>npm install {{ scope }}/{{ pack.name }}</code>
+      <button (click)="publish()">Publish</button>
+    </div>
+  </div>
+</div>

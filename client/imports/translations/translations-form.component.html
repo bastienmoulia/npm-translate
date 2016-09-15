@@ -1,0 +1,5 @@
+<form [formGroup]="addForm" (ngSubmit)="addTranslation()">
+  <label>New key:</label>
+  <input type="text" formControlName="key">
+  <button type="submit">Add</button>
+</form>

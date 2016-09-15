@@ -1,0 +1,22 @@
+<div *ngIf="translations">
+  <table>
+    <tr>
+      <th>Key</th>
+      <th *ngFor="let lang of langs">{{ lang }}</th>
+      <th *ngIf="isAdmin"></th>
+    </tr>
+    <tr *ngFor="let translation of translations">
+      <td>{{ translation.key }}</td>
+      <td *ngFor="let lang of langs">
+        <input *ngIf="!!user" type="text" [(ngModel)]="translation.langs[lang]">
+        <span *ngIf="!user">{{ translation.langs[lang] }}</span>
+      </td>
+      <td *ngIf="isAdmin">
+        <button (click)="delete(translation)">x</button>
+      </td>
+    </tr>
+  </table>
+  <button *ngIf="!!user" (click)="save()">Save translations</button>
+</div>
+<p *ngIf="!translations">No translations</p>
+<translations-form *ngIf="isAdmin"></translations-form>

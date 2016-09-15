@@ -1,0 +1,10 @@
+<div>
+  <packs-form *ngIf="!!user"></packs-form>
+  <login-buttons></login-buttons>
+  <ul>
+    <li *ngFor="let pack of packs">
+      <a [routerLink]="['/package', pack._id]">{{pack.name}}</a>
+    </li>
+  </ul>
+  <p *ngIf="!packs">No packages</p>
+</div>

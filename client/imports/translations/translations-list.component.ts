@@ -10,13 +10,15 @@ import { MeteorComponent } from 'angular2-meteor';
 import { Packs } from '../../../both/collections/packs.collection';
 import { IPack } from '../../../both/interfaces/pack.interface';
 import { TranslationsFormComponent } from './translations-form.component';
+import { DisplayLangPipe } from '../shared/display-lang.pipe';
 
 import template from './translations-list.component.html';
 
 @Component({
   selector: 'translations-list',
   template,
-  directives: [TranslationsFormComponent]
+  directives: [TranslationsFormComponent],
+  pipes: [DisplayLangPipe]
 })
 @InjectUser('user')
 export class TranslationsListComponent extends MeteorComponent implements OnInit{

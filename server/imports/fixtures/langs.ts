@@ -6,11 +6,11 @@ export function loadLangs() {
     const langs: ILang[] = [
       {
         name: 'English',
-        key: 'en'
+        _id: 'en'
       },
       {
         name: 'Français',
-        key: 'fr'
+        _id: 'fr'
       }
     ];
 

@@ -1,7 +1,6 @@
 export interface IPack {
-  _id?: string;
+  _id: string;
   langs: string[];
-  name: string;
   owner?: string;
   public: boolean;
   translations?: ITranslations[];

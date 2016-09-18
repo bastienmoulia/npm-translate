@@ -20,11 +20,11 @@ Meteor.startup(() => {
   Meteor.methods({
     publish: (packId) => {
       const pack = Packs.findOne(packId);
-      console.log('publish', pack.name);
+      console.log('publish', pack._id);
       const path = fs.realpathSync('.') + '/server/publish/';
 
-      let readmeContent = '# ' + pack.name;
-      fsPath.writeFile(path + pack.name + '/README.md', readmeContent, (err) => {
+      let readmeContent = '# ' + pack._id;
+      fsPath.writeFile(path + pack._id + '/README.md', readmeContent, (err) => {
         if (err) {
           throw err;
         } else {
@@ -33,7 +33,7 @@ Meteor.startup(() => {
       });
 
       let packageJson = {
-        name: scope + pack.name,
+        name: scope + pack._id,
         version: '0.0.1',
         private: false
       };
@@ -47,7 +47,7 @@ Meteor.startup(() => {
       }
 
       let packageContent = JSON.stringify(packageJson);
-      fsPath.writeFile(path + pack.name + '/package.json', packageContent, (err) => {
+      fsPath.writeFile(path + pack._id + '/package.json', packageContent, (err) => {
         if (err) {
           throw err;
         } else {
@@ -61,7 +61,7 @@ Meteor.startup(() => {
           translationsJson[translation.key] = translation.langs[lang];
         });
         let translationsContent = JSON.stringify(translationsJson);
-        fsPath.writeFile(path + pack.name + '/' + lang + '.json', translationsContent, (err) => {
+        fsPath.writeFile(path + pack._id + '/' + lang + '.json', translationsContent, (err) => {
           if (err) {
             throw err;
           } else {
@@ -70,7 +70,7 @@ Meteor.startup(() => {
         });
       });
 
-      let cmd = 'npm publish ' + path + pack.name + ' --access public';
+      let cmd = 'npm publish ' + path + pack._id + ' --access public';
       childProcess.exec(cmd, (error, stdout, stderr) => {
         // command output is in stdout
         console.log(error, stdout, stderr);

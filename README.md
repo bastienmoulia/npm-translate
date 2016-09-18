@@ -24,4 +24,5 @@ NPM translate facilitates the managements of the translation files for developer
 
 
 - Utiliser variable environnement pour le scope et les langs
-- Passer les variables name de pack et key de lang en _id
+- Dans la liste des package, ajouter un filtre par nom
+- Dans la liste des traduction faire des filtes par langues + traductions manquante

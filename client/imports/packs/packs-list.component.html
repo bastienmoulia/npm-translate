@@ -1,10 +1,13 @@
 <div>
-  <packs-form *ngIf="!!user"></packs-form>
+  <packs-form *ngIf="user"></packs-form>
   <login-buttons></login-buttons>
-  <ul>
-    <li *ngFor="let pack of packs">
-      <a [routerLink]="['/package', pack._id]">{{pack.name}}</a>
-    </li>
-  </ul>
-  <p *ngIf="!packs">No packages</p>
+  <div>
+    <input type="search" placeholder="Filter" [value]="filter">
+    <ul>
+      <li *ngFor="let pack of packs">
+        <a [routerLink]="['/package', pack._id]">{{pack._id}}</a>
+      </li>
+    </ul>
+    <p *ngIf="packs.count() === 0">No packages</p>
+  </div>
 </div>

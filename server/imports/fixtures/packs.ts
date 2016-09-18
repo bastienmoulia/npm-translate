@@ -5,7 +5,7 @@ export function loadPacks() {
   if (Packs.find().count() === 0) {
     const packs: IPack[] = [
       {
-        name: 'test',
+        _id: 'test',
         langs: ['en', 'fr'],
         public: true,
         translations: [

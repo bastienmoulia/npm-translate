@@ -1,0 +1,15 @@
+<div *ngIf="pack">
+  <header>
+    <h2>Config</h2>
+    <a [routerLink]="['/package', pack._id]">Back</a>
+  </header>
+  <div>
+    <h3>Langs</h3>
+    <ul>
+      <li *ngFor="let lang of pack.langs">
+        {{ lang | displayLang }}
+      </li>
+    </ul>
+  TODO pouvoir editer les langues
+  </div>
+</div>

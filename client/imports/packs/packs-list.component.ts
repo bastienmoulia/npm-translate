@@ -19,8 +19,10 @@ import template from './packs-list.component.html';
 export class PacksListComponent extends MeteorComponent implements OnInit {
   packs: Mongo.Cursor<IPack>;
   user: Meteor.User;
+  filter: string;
   constructor() {
     super();
+    this.filter = "";
   }
   ngOnInit() {
     this.packs = Packs.find();

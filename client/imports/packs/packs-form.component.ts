@@ -9,7 +9,7 @@ import { IPack } from '../../../both/interfaces/pack.interface';
 import { ILang } from '../../../both/interfaces/lang.interface';
 
 import template from './packs-form.component.html';
- 
+
 @Component({
   selector: 'packs-form',
   template,
@@ -21,7 +21,7 @@ export class PacksFormComponent extends MeteorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     super();
   }
- 
+
   ngOnInit() {
     this.langs = Langs.find();
     this.subscribe('langs', () => {
@@ -43,7 +43,7 @@ export class PacksFormComponent extends MeteorComponent implements OnInit {
       if (Meteor.userId()) {
         let form: IPack = {
           langs: [this.addForm.value.lang],
-          name: this.addForm.value.name,
+          _id: this.addForm.value.name,
           owner: Meteor.userId(),
           public: true
         }

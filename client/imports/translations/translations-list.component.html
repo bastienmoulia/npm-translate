@@ -2,7 +2,7 @@
   <table>
     <tr>
       <th>Key</th>
-      <th *ngFor="let lang of langs">{{ lang }}</th>
+      <th *ngFor="let lang of langs">{{ lang | displayLang }}</th>
       <th *ngIf="isAdmin"></th>
     </tr>
     <tr *ngFor="let translation of translations">

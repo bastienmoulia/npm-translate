@@ -26,3 +26,5 @@ NPM translate facilitates the managements of the translation files for developer
 - Utiliser variable environnement pour le scope et les langs
 - Dans la liste des package, ajouter un filtre par nom
 - Dans la liste des traduction faire des filtes par langues + traductions manquante
+- Passer à angular 2
+- Passer à TypeScript 2

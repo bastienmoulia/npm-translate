@@ -9,7 +9,7 @@ import { IPack } from '../../../both/interfaces/pack.interface';
 import { PacksFormComponent } from './packs-form.component';
 
 import template from './packs-list.component.html';
- 
+
 @Component({
   selector: 'packs-list',
   template,
@@ -18,16 +18,29 @@ import template from './packs-list.component.html';
 @InjectUser('user')
 export class PacksListComponent extends MeteorComponent implements OnInit {
   packs: Mongo.Cursor<IPack>;
+  packsFiltered: IPack[];
   user: Meteor.User;
   filter: string;
   constructor() {
     super();
-    this.filter = "";
+    this.filter = '';
   }
+
   ngOnInit() {
     this.packs = Packs.find();
     this.subscribe('packs', () => {
       this.packs = Packs.find();
+      this.updateFilter();
     }, true);
+  }
+
+  updateFilter() {
+    this.packsFiltered = [];
+    this.packs.forEach((pack) => {
+      console.log("updateFilter", pack);
+      if (pack._id.indexOf(this.filter) !== -1) {
+        this.packsFiltered.push(pack);
+      }
+    });
   }
 }

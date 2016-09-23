@@ -2,12 +2,13 @@
   <packs-form *ngIf="user"></packs-form>
   <login-buttons></login-buttons>
   <div>
-    <input type="search" placeholder="Filter" [value]="filter">
+    <input type="search" placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="updateFilter()">
     <ul>
-      <li *ngFor="let pack of packs">
+      <li *ngFor="let pack of packsFiltered">
         <a [routerLink]="['/package', pack._id]">{{pack._id}}</a>
       </li>
     </ul>
+    <p *ngIf="packs.count() !== 0 && packsFiltered.length === 0">No packages with the current filter</p>
     <p *ngIf="packs.count() === 0">No packages</p>
   </div>
 </div>

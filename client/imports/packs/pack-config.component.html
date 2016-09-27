@@ -8,8 +8,15 @@
     <ul>
       <li *ngFor="let lang of pack.langs">
         {{ lang | displayLang }}
+        <button *ngIf="pack.langs.length > 1" (click)="delete(lang)">x</button>
       </li>
     </ul>
-  TODO pouvoir editer les langues
+    <form [formGroup]="addLangForm" (ngSubmit)="addLang()">
+      <label>New lang</label>
+      <select formControlName="lang">
+        <option *ngFor="let lang of langs" [value]="lang._id">{{lang.name}}</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
   </div>
 </div>

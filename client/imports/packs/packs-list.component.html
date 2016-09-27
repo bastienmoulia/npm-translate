@@ -5,7 +5,10 @@
     <input type="search" placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="updateFilter()">
     <ul>
       <li *ngFor="let pack of packsFiltered">
-        <a [routerLink]="['/package', pack._id]">{{pack._id}}</a>
+        <a [routerLink]="['/package', pack._id]">
+          {{pack._id}}
+          <span>{{ pack.progression }}%</span>
+        </a>
       </li>
     </ul>
     <p *ngIf="packs.count() !== 0 && packsFiltered.length === 0">No packages with the current filter</p>

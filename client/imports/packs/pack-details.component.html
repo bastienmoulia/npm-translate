@@ -3,12 +3,12 @@
     <h2>{{pack ? pack._id : 'No package with this name'}}</h2>
     <a [routerLink]="['/']">Back</a>
     <a [routerLink]="['/package', pack._id, 'config']" *ngIf="isAdmin">Configuration</a>
-  </header>
-  <div *ngIf="pack">
-    <translations-list></translations-list>
-    <div *ngIf="isAdmin">
+    <div *ngIf="isAdmin && pack">
       <code>npm install {{ scope }}/{{ pack._id }}</code>
       <button (click)="publish()">Publish</button>
     </div>
+  </header>
+  <div *ngIf="pack">
+    <translations-list></translations-list>
   </div>
 </div>

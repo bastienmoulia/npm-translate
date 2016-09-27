@@ -1,8 +1,15 @@
 <div *ngIf="translations">
+  <label>
+    <input type="checkbox" [(ngModel)]="showOnlyMissing">
+    Only display missing tranlations
+  </label>
   <table>
     <tr>
       <th>Key</th>
-      <th *ngFor="let lang of langs">{{ lang | displayLang }}</th>
+      <th *ngFor="let lang of langs">
+        {{ lang | displayLang }}
+        <span>{{ progression[lang] }}%</span>
+      </th>
       <th *ngIf="isAdmin"></th>
     </tr>
     <tr *ngFor="let translation of translations">

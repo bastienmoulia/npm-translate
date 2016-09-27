@@ -27,11 +27,15 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
   translations: any[];
   isAdmin: boolean;
   user: Meteor.User;
+  showOnlyMissing: boolean;
+  progression: any;
   constructor(private route: ActivatedRoute, private ngZone: NgZone) {
     super();
     this.langs = [];
     this.translations = [];
     this.isAdmin = false;
+    this.showOnlyMissing = false;
+    this.progression = {};
     /*this.translations.valueChanges
       // only recompute when the user stops typing for 400ms
       .debounceTime(400)
@@ -59,6 +63,7 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
               if (this.user && this.user._id === pack.owner) {
                 this.isAdmin = true;
               }
+              this.updateProgression();
             }
           });
         });
@@ -84,5 +89,23 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
     } else {
       alert('Please log in to delete a translation');
     }
+  }
+
+  updateProgression() {
+    this.progression = {};
+    const translationsLength = this.translations.length;
+    this.langs.forEach((lang) => {
+      if (translationsLength > 0) {
+        let translationInLang = this.translations.filter((translation) => {
+          console.log("translation.langs[lang]", translation.langs[lang]);
+          return translation.langs[lang] && translation.langs[lang] !== '';
+        });
+        console.log("translationInLang", translationInLang);
+        this.progression[lang] = Math.round(translationInLang.length / translationsLength * 100);
+      } else {
+        this.progression[lang] = 0;
+      }
+      console.log("progression", this.progression);
+    });
   }
 }

@@ -4,6 +4,7 @@ export interface IPack {
   owner?: string;
   public: boolean;
   translations?: ITranslations[];
+  progression?: number;
 }
 export interface ITranslations {
   key: string;

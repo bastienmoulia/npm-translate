@@ -21,21 +21,19 @@ import template from './translations-list.component.html';
   pipes: [DisplayLangPipe]
 })
 @InjectUser('user')
-export class TranslationsListComponent extends MeteorComponent implements OnInit{
+export class TranslationsListComponent extends MeteorComponent implements OnInit {
   packId: string;
-  langs: string[];
+  langs: any[];
   translations: any[];
   isAdmin: boolean;
   user: Meteor.User;
   showOnlyMissing: boolean;
-  progression: any;
   constructor(private route: ActivatedRoute, private ngZone: NgZone) {
     super();
     this.langs = [];
     this.translations = [];
     this.isAdmin = false;
     this.showOnlyMissing = false;
-    this.progression = {};
     /*this.translations.valueChanges
       // only recompute when the user stops typing for 400ms
       .debounceTime(400)
@@ -53,13 +51,18 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
         this.packId = packId;
         Tracker.autorun(() => {
           this.ngZone.run(() => {
-            console.log("packId", this.packId);
+            console.log('packId', this.packId);
             let pack: IPack = Packs.findOne(this.packId);
-            console.log("pack", pack);
+            console.log('pack', pack);
             if (pack) {
-              this.langs = pack.langs;
+              pack.langs.forEach((lang) => {
+                this.langs.push({
+                  id: lang,
+                  isDisplay: true
+                });
+              });
               this.translations = pack.translations;
-              console.log("user", this.user);
+              console.log('user', this.user);
               if (this.user && this.user._id === pack.owner) {
                 this.isAdmin = true;
               }
@@ -92,20 +95,18 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
   }
 
   updateProgression() {
-    this.progression = {};
-    const translationsLength = this.translations.length;
+    const translationsLength: number = this.translations.length;
     this.langs.forEach((lang) => {
       if (translationsLength > 0) {
-        let translationInLang = this.translations.filter((translation) => {
-          console.log("translation.langs[lang]", translation.langs[lang]);
-          return translation.langs[lang] && translation.langs[lang] !== '';
+        let translationInLang: any[] = this.translations.filter((translation) => {
+          console.log('translation.langs[lang]', translation.langs[lang.id]);
+          return translation.langs[lang.id] && translation.langs[lang.id] !== '';
         });
-        console.log("translationInLang", translationInLang);
-        this.progression[lang] = Math.round(translationInLang.length / translationsLength * 100);
+        console.log('translationInLang', translationInLang);
+        lang.progression = Math.round(translationInLang.length / translationsLength * 100);
       } else {
-        this.progression[lang] = 0;
+        lang.progression = 0;
       }
-      console.log("progression", this.progression);
     });
   }
 }

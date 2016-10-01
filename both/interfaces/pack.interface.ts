@@ -3,7 +3,7 @@ export interface IPack {
   langs: string[];
   owner?: string;
   public: boolean;
-  translations?: ITranslations[];
+  translations: ITranslations[];
   progression?: number;
 }
 export interface ITranslations {

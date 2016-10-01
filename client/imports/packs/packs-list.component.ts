@@ -28,35 +28,43 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
 
   ngOnInit() {
     this.packs = Packs.find();
-    this.updateProgression();
     this.updateFilter();
+    this.updateProgression();
     this.subscribe('packs', () => {
-      this.packs = Packs.find().toArray();
-      this.updateProgression();
+      this.packs = Packs.find();
       this.updateFilter();
+      this.updateProgression();
     }, true);
-  }
-
-  updateProgression() {
-    this.packs.forEach((pack: IPack) => {
-      console.log("updateProgression", pack);
-      const translationsLength = pack.translations.length;
-      if (translationsLength > 0) {
-        pack.progression = 1;
-      } else {
-        pack.progression = 0;
-      }
-    });
-    console.log("updateProgression end", this.packs);
   }
 
   updateFilter() {
     this.packsFiltered = [];
     this.packs.forEach((pack: IPack) => {
-      console.log("updateFilter", pack);
+      console.log('updateFilter', pack);
       if (pack._id.indexOf(this.filter) !== -1) {
         this.packsFiltered.push(pack);
       }
     });
+  }
+
+  updateProgression() {
+    this.packsFiltered.forEach((pack: IPack) => {
+      console.log('updateProgression', pack);
+      const totalTranslations: number = pack.translations.length * pack.langs.length;
+      if (totalTranslations > 0) {
+        let translationDone: number = 0;
+        pack.translations.forEach((translation) => {
+          pack.langs.forEach((lang) => {
+            if (translation.langs[lang] && translation.langs[lang] !== '') {
+              translationDone += 1;
+            }
+          });
+        });
+        pack.progression = Math.round(translationDone / totalTranslations * 100);
+      } else {
+        pack.progression = 0;
+      }
+    });
+    console.log('updateProgression end', this.packsFiltered);
   }
 }

@@ -26,7 +26,7 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit {
   constructor(private route: ActivatedRoute, private ngZone: NgZone) {
     super();
     this.isAdmin = false;
-    this.scope = '@todo';// ENV.scope;
+    this.scope = '@todo'; // ENV.scope;
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit {
 
   publish() {
     Meteor.call('publish', this.packId, (err, response) => {
-      console.log("publish", err, response);
+      console.log('publish', err, response);
     });
   }
 }

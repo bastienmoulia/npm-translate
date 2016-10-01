@@ -9,18 +9,18 @@ import { ILang } from '../../../both/interfaces/lang.interface';
 @Pipe({
   name: 'displayLang'
 })
-export class DisplayLangPipe extends MeteorComponent{
+export class DisplayLangPipe extends MeteorComponent {
   constructor() {
     super();
   }
 
   transform(langId: string): any {
-    //console.log("langId", langId);
+    // console.log('langId', langId);
     return langId; // TODO
     /*this.subscribe('langs', () => {
-      console.log("subscribe");
+      console.log('subscribe');
       const lang: ILang = Langs.findOne({ _id: langId });
-      console.log("lang", lang);
+      console.log('lang', lang);
       if (lang) {
         return lang.name;
       } else {

@@ -23,14 +23,14 @@ NPM translate facilitates the managements of the translation files for developer
 
 
 - Utiliser variable environnement pour le scope et les langs
-- Dans la liste des traduction faire des filtes par langues + traductions manquante
+- Dans la liste des traduction faire des filtes par langues
 - Faire le pipe pour récupérer le nom de la langue a partir de l'id
-- Afficher l'avancement de la trad en %
 - Faire l'API pour le badge
 - Passer à angular 2
 - Passer au typings NPM
+- Passer à MongoDB 3
 - Ajouter Ionic 2
 - Ne pas autoriser l'accés a la page config si pas admin
 - Login avec twitter FB GitHub
-- système de proposition de changement de traduction pour les invités
-- système de validation de changement pour les collaborateurs
+- Système de proposition de changement de traduction pour les invités
+- Système de validation de changement pour les collaborateurs

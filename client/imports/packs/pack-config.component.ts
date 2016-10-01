@@ -31,8 +31,8 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
   }
 
   canActivate() {
-    console.log("this.pack.owner", this.pack.owner);
-    console.log("this.user._id", this.user._id);
+    console.log('this.pack.owner', this.pack.owner);
+    console.log('this.user._id', this.user._id);
     return (this.pack && this.pack.owner === this.user._id);
   }
 
@@ -57,11 +57,11 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
     this.addLangForm = this.formBuilder.group({
       lang: ['', Validators.required]
     });
-    //TODO ne pas afficher les langues déjà choisies
+    // TODO ne pas afficher les langues déjà choisies
   }
 
   delete(lang: string) {
-    if (confirm("Are you sure to delete all translations in " + lang + " ?")){
+    if (confirm('Are you sure to delete all translations in ' + lang + ' ?')) {
       this.pack.langs.splice(this.pack.langs.indexOf(lang), 1);
       Packs.update(this.packId, {
         $set: {langs: this.pack.langs }
@@ -71,7 +71,7 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
 
   addLang() {
     let lang: string = this.addLangForm.value.lang;
-    if (this.pack.langs.indexOf(lang) === -1 && lang !== "") {
+    if (this.pack.langs.indexOf(lang) === -1 && lang !== '') {
       this.pack.langs.push(lang);
       Packs.update(this.packId, {
         $set: {langs: this.pack.langs }

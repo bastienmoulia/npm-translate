@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Packs } from '../../../both/collections/packs.collection';
 
 import template from './translations-form.component.html';
- 
+
 @Component({
   selector: 'translations-form',
   template,
@@ -14,9 +14,9 @@ import template from './translations-form.component.html';
 })
 export class TranslationsFormComponent implements OnInit {
   addForm: FormGroup;
- 
+
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {}
- 
+
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       key: ['', Validators.required]
@@ -26,14 +26,14 @@ export class TranslationsFormComponent implements OnInit {
   resetForm() {
     this.addForm.controls['key']['updateValue']('');
   }
- 
+
   addTranslation() {
     if (this.addForm.valid) {
       if (Meteor.userId()) {
         this.route.params
           .map(params => params['packId'])
           .subscribe(packId => {
-            console.log("this.addForm.value", this.addForm.value);
+            console.log('this.addForm.value', this.addForm.value);
             // TODO raffraichir aprés ajout
             Packs.update(packId, {
               $addToSet: {translations: Object.assign({}, this.addForm.value, { langs: {} }) }

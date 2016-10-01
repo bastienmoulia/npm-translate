@@ -27,7 +27,7 @@ export class PacksFormComponent extends MeteorComponent implements OnInit {
     this.subscribe('langs', () => {
       this.langs = Langs.find();
     }, true);
-    console.log("langs", this.langs);
+    console.log('langs', this.langs);
     this.addForm = this.formBuilder.group({
       name: ['', Validators.required],
       lang: ['', Validators.required]
@@ -42,11 +42,12 @@ export class PacksFormComponent extends MeteorComponent implements OnInit {
     if (this.addForm.valid) {
       if (Meteor.userId()) {
         let form: IPack = {
-          langs: [this.addForm.value.lang],
           _id: this.addForm.value.name,
+          langs: [this.addForm.value.lang],
           owner: Meteor.userId(),
-          public: true
-        }
+          public: true,
+          translations: []
+        };
         Packs.insert(form);
 
         // XXX will be replaced by this.addForm.reset() in RC5+

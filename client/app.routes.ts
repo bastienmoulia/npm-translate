@@ -9,7 +9,7 @@ const routes: RouterConfig = [
   { path: 'package/:packId', component: PackDetailsComponent },
   { path: 'package/:packId/config', component: PackConfigComponent }
 ];
- 
+
 export const APP_ROUTER_PROVIDERS = [
   provideRouter(routes)
 ];

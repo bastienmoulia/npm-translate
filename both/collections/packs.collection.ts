@@ -2,7 +2,7 @@ import {Mongo} from 'meteor/mongo';
 
 import {IPack} from '../interfaces/pack.interface';
 
-export const Packs = new Mongo.Collection<IPack>('packs');
+export const Packs: Mongo.Collection<IPack> = new Mongo.Collection<IPack>('packs');
 
 function loggedIn() {
   return !!Meteor.user();

@@ -8,22 +8,23 @@
   Delete the folder
 */
 import {Meteor} from 'meteor/meteor';
-const fsPath = Npm.require("fs-path");
+const fsPath = Npm.require('fs-path');
 const fs = Npm.require('fs');
 const childProcess = Npm.require('child_process');
 
 import { Packs } from '../both/collections/packs.collection';
+import { IPack } from '../both/interfaces/pack.interface';
 
-const scope = '@bastienmoulia/';
+const scope: string = '@bastienmoulia/';
 
 Meteor.startup(() => {
   Meteor.methods({
     publish: (packId) => {
-      const pack = Packs.findOne(packId);
+      const pack: IPack = Packs.findOne(packId);
       console.log('publish', pack._id);
-      const path = fs.realpathSync('.') + '/server/publish/';
+      const path: string = fs.realpathSync('.') + '/server/publish/';
 
-      let readmeContent = '# ' + pack._id;
+      let readmeContent: string = '# ' + pack._id;
       fsPath.writeFile(path + pack._id + '/README.md', readmeContent, (err) => {
         if (err) {
           throw err;
@@ -32,21 +33,21 @@ Meteor.startup(() => {
         }
       });
 
-      let packageJson = {
+      let packageJson: any = {
         name: scope + pack._id,
         version: '0.0.1',
         private: false
       };
-      let version = childProcess.execSync('npm view ' + packageJson.name + ' version').toString();
+      let version: string = childProcess.execSync('npm view ' + packageJson.name + ' version').toString();
       console.log(version);
       if (version) {
-        let semVer = version.split('.');
-        semVer[semVer.length - 1] = parseInt(semVer[semVer.length - 1], 10) + 1;
+        let semVer: number[] = version.split('.').map((version) => parseInt(version, 10));
+        semVer[semVer.length - 1] = semVer[semVer.length - 1] + 1;
         packageJson.version = semVer.join('.');
         console.log(packageJson.version);
       }
 
-      let packageContent = JSON.stringify(packageJson);
+      let packageContent: string = JSON.stringify(packageJson);
       fsPath.writeFile(path + pack._id + '/package.json', packageContent, (err) => {
         if (err) {
           throw err;
@@ -56,11 +57,11 @@ Meteor.startup(() => {
       });
 
       pack.langs.forEach((lang) => {
-        let translationsJson = {};
+        let translationsJson: any = {};
         pack.translations.forEach((translation) => {
           translationsJson[translation.key] = translation.langs[lang];
         });
-        let translationsContent = JSON.stringify(translationsJson);
+        let translationsContent: string = JSON.stringify(translationsJson);
         fsPath.writeFile(path + pack._id + '/' + lang + '.json', translationsContent, (err) => {
           if (err) {
             throw err;

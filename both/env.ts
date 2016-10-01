@@ -1,10 +1,10 @@
 export class ENV {
   constructor() {
     return {
-      scope: "@bastienmoulia",
+      scope: '@bastienmoulia',
       langs: {
-        en: "English",
-        fr: "Français"
+        en: 'English',
+        fr: 'Français'
       }
     };
   }

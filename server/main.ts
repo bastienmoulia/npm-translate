@@ -1,4 +1,4 @@
-import {loadPacks} from './imports/fixtures/packs';
+// import {loadPacks} from './imports/fixtures/packs';
 import {loadLangs} from './imports/fixtures/langs';
 import {Meteor} from 'meteor/meteor';
 

@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Tracker } from 'meteor/tracker';
 import { MeteorComponent } from 'angular2-meteor';
@@ -14,7 +14,8 @@ import template from './pack-details.component.html';
 @Component({
   selector: 'pack-details',
   template,
-  directives: [ROUTER_DIRECTIVES, TranslationsListComponent]
+  directives: [ROUTER_DIRECTIVES, TranslationsListComponent],
+  providers: [ENV]
 })
 @InjectUser('user')
 export class PackDetailsComponent extends MeteorComponent implements OnInit {
@@ -23,10 +24,10 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit {
   isAdmin: boolean;
   user: Meteor.User;
   scope: string;
-  constructor(private route: ActivatedRoute, private ngZone: NgZone) {
+  constructor(private route: ActivatedRoute, private ngZone: NgZone, private env: ENV) {
     super();
     this.isAdmin = false;
-    this.scope = '@todo'; // ENV.scope;
+    this.scope = env.scope;
   }
 
   ngOnInit() {

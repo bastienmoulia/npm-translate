@@ -49,7 +49,6 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
 
   updateProgression() {
     this.packsFiltered.forEach((pack: IPack) => {
-      console.log('updateProgression', pack);
       const totalTranslations: number = pack.translations.length * pack.langs.length;
       if (totalTranslations > 0) {
         let translationDone: number = 0;
@@ -65,6 +64,5 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
         pack.progression = 0;
       }
     });
-    console.log('updateProgression end', this.packsFiltered);
   }
 }

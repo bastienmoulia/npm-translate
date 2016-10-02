@@ -22,7 +22,8 @@ NPM translate facilitates the managements of the translation files for developer
 - Page profil
 
 
-- Utiliser variable environnement pour le scope et les langs
+- Quand on ajoute un nouveau package, rafraichir la liste
+- Afficher seulement les traductions manquantes
 - Dans la liste des traduction faire des filtes par langues
 - Faire le pipe pour récupérer le nom de la langue a partir de l'id
 - Faire l'API pour le badge

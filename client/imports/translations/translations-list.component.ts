@@ -33,7 +33,7 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
     this.langs = [];
     this.translations = [];
     this.isAdmin = false;
-    this.showOnlyMissing = false;
+    this.showOnlyMissing = false; // TODO
     /*this.translations.valueChanges
       // only recompute when the user stops typing for 400ms
       .debounceTime(400)
@@ -55,6 +55,7 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
             let pack: IPack = Packs.findOne(this.packId);
             console.log('pack', pack);
             if (pack) {
+              this.langs = [];
               pack.langs.forEach((lang) => {
                 this.langs.push({
                   id: lang,

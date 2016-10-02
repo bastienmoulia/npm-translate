@@ -7,7 +7,7 @@
       <li *ngFor="let pack of packsFiltered">
         <a [routerLink]="['/package', pack._id]">
           {{pack._id}}
-          <span>{{ pack.progression }}%</span>
+          <span>{{ pack.progression | percent}}</span>
         </a>
       </li>
     </ul>

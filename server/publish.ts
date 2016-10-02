@@ -14,8 +14,10 @@ const childProcess = Npm.require('child_process');
 
 import { Packs } from '../both/collections/packs.collection';
 import { IPack } from '../both/interfaces/pack.interface';
+import { ENV } from '../both/env';
 
-const scope: string = '@bastienmoulia/';
+const env: ENV = new(ENV);
+const scope: string = env.scope + '/';
 
 Meteor.startup(() => {
   Meteor.methods({

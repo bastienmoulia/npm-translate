@@ -13,16 +13,18 @@
     <tr>
       <th>Key</th>
       <th *ngFor="let lang of langs">
-        {{ lang.id | displayLang }}
-        <span>{{ lang.progression }}%</span>
+        <span *ngIf="lang.isDisplay">
+          {{ lang.id | displayLang }}
+          <span>{{ lang.progression }}%</span>
+        </span>
       </th>
       <th *ngIf="isAdmin"></th>
     </tr>
     <tr *ngFor="let translation of translations">
       <td>{{ translation.key }}</td>
       <td *ngFor="let lang of langs">
-        <input *ngIf="!!user" type="text" [(ngModel)]="translation.langs[lang.id]">
-        <span *ngIf="!user">{{ translation.langs[lang.id] }}</span>
+        <input *ngIf="lang.isDisplay && !!user" type="text" [(ngModel)]="translation.langs[lang.id]">
+        <span *ngIf="lang.isDisplay && !user">{{ translation.langs[lang.id] }}</span>
       </td>
       <td *ngIf="isAdmin">
         <button (click)="delete(translation)">x</button>

@@ -15,7 +15,7 @@
       <th *ngFor="let lang of langs">
         <span *ngIf="lang.isDisplay">
           {{ lang.id | displayLang }}
-          <span>{{ lang.progression }}%</span>
+          <span>{{ lang.progression | percent }}</span>
         </span>
       </th>
       <th *ngIf="isAdmin"></th>

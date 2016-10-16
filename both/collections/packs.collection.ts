@@ -1,8 +1,8 @@
-import {Mongo} from 'meteor/mongo';
+import { MongoObservable } from 'meteor-rxjs';
 
-import {IPack} from '../interfaces/pack.interface';
+import { Pack } from '../models/pack.model';
 
-export const Packs: Mongo.Collection<IPack> = new Mongo.Collection<IPack>('packs');
+export const Packs = new MongoObservable.Collection<Pack>('packs');
 
 function loggedIn() {
   return !!Meteor.user();

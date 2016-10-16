@@ -1,9 +1,9 @@
 import { Packs } from '../../../both/collections/packs.collection';
-import { IPack } from '../../../both/interfaces/pack.interface';
+import { Pack } from '../../../both/models/pack.model';
 
 export function loadPacks() {
-  if (Packs.find().count() === 0) {
-    const packs: IPack[] = [
+  if (Packs.find({}).cursor.count() === 0) {
+    const packs: Pack[] = [
       {
         _id: 'test',
         langs: ['en', 'fr'],

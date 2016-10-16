@@ -7,18 +7,14 @@ import { MeteorComponent } from 'angular2-meteor';
 // import 'rxjs/add/operator/debounceTime';
 // import 'rxjs/add/operator/distinctUntilChanged';
 
-import { Packs } from '../../../both/collections/packs.collection';
-import { IPack } from '../../../both/interfaces/pack.interface';
-import { TranslationsFormComponent } from './translations-form.component';
-import { DisplayLangPipe } from '../shared/display-lang.pipe';
+import { Packs } from '../../../../both/collections/packs.collection';
+import { Pack } from '../../../../both/models/pack.model';
 
 import template from './translations-list.component.html';
 
 @Component({
   selector: 'translations-list',
-  template,
-  directives: [TranslationsFormComponent],
-  pipes: [DisplayLangPipe]
+  template
 })
 @InjectUser('user')
 export class TranslationsListComponent extends MeteorComponent implements OnInit {
@@ -52,7 +48,7 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
         Tracker.autorun(() => {
           this.ngZone.run(() => {
             console.log('packId', this.packId);
-            let pack: IPack = Packs.findOne(this.packId);
+            let pack: Pack = Packs.findOne(this.packId);
             console.log('pack', pack);
             if (pack) {
               this.langs = [];
@@ -104,7 +100,7 @@ export class TranslationsListComponent extends MeteorComponent implements OnInit
           return translation.langs[lang.id] && translation.langs[lang.id] !== '';
         });
         console.log('translationInLang', translationInLang);
-        lang.progression = Math.round(translationInLang.length / translationsLength * 100);
+        lang.progression = translationInLang.length / translationsLength;
       } else {
         lang.progression = 0;
       }

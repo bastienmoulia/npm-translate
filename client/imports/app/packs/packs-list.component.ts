@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Mongo } from 'meteor/mongo';
-import { LoginButtons, InjectUser } from 'angular2-meteor-accounts-ui';
+import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { MeteorComponent } from 'angular2-meteor';
+import { Observable } from 'rxjs/Observable';
 
-import { Packs }   from '../../../both/collections/packs.collection';
-import { IPack } from '../../../both/interfaces/pack.interface';
-import { PacksFormComponent } from './packs-form.component';
+import { Packs } from '../../../../both/collections/packs.collection';
+import { Pack } from '../../../../both/models/pack.model';
 
 import template from './packs-list.component.html';
 
 @Component({
   selector: 'packs-list',
-  template,
-  directives: [PacksFormComponent, ROUTER_DIRECTIVES, LoginButtons]
+  template
 })
 @InjectUser('user')
 export class PacksListComponent extends MeteorComponent implements OnInit {
-  packs: Mongo.Cursor<IPack>;
-  packsFiltered: IPack[];
+  packs: Observable<Pack[]>;
+  packsFiltered: Pack[];
   user: Meteor.User;
   filter: string;
   constructor() {
@@ -27,11 +25,11 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.packs = Packs.find();
+    this.packs = Packs.find({});
     this.updateFilter();
     this.updateProgression();
     this.subscribe('packs', () => {
-      this.packs = Packs.find();
+      this.packs = Packs.find({});
       this.updateFilter();
       this.updateProgression();
     }, true);
@@ -39,16 +37,18 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
 
   updateFilter() {
     this.packsFiltered = [];
-    this.packs.forEach((pack: IPack) => {
-      console.log('updateFilter', pack);
-      if (pack._id.indexOf(this.filter) !== -1) {
-        this.packsFiltered.push(pack);
-      }
+    this.packs.subscribe((packs) => {
+      packs.forEach((pack: Pack) => {
+        console.log('updateFilter', pack);
+        if (pack._id.indexOf(this.filter) !== -1) {
+          this.packsFiltered.push(pack);
+        }
+      });
     });
   }
 
   updateProgression() {
-    this.packsFiltered.forEach((pack: IPack) => {
+    this.packsFiltered.forEach((pack: Pack) => {
       const totalTranslations: number = pack.translations.length * pack.langs.length;
       if (totalTranslations > 0) {
         let translationDone: number = 0;
@@ -59,7 +59,7 @@ export class PacksListComponent extends MeteorComponent implements OnInit {
             }
           });
         });
-        pack.progression = Math.round(translationDone / totalTranslations * 100);
+        pack.progression = translationDone / totalTranslations;
       } else {
         pack.progression = 0;
       }

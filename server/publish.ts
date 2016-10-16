@@ -13,7 +13,7 @@ const fs = Npm.require('fs');
 const childProcess = Npm.require('child_process');
 
 import { Packs } from '../both/collections/packs.collection';
-import { IPack } from '../both/interfaces/pack.interface';
+import { Pack } from '../both/models/pack.model';
 import { ENV } from '../both/env';
 
 const env: ENV = new(ENV);
@@ -22,7 +22,7 @@ const scope: string = env.scope + '/';
 Meteor.startup(() => {
   Meteor.methods({
     publish: (packId) => {
-      const pack: IPack = Packs.findOne(packId);
+      const pack: Pack = Packs.findOne(packId);
       console.log('publish', pack._id);
       const path: string = fs.realpathSync('.') + '/server/publish/';
 

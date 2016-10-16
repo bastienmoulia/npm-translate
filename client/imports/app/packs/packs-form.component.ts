@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
+import { Observable } from 'rxjs/Observable';
 
-import { Packs } from '../../../both/collections/packs.collection';
-import { Langs } from '../../../both/collections/langs.collection';
-import { IPack } from '../../../both/interfaces/pack.interface';
-import { ILang } from '../../../both/interfaces/lang.interface';
+import { Packs } from '../../../../both/collections/packs.collection';
+import { Langs } from '../../../../both/collections/langs.collection';
+import { Pack } from '../../../../both/models/pack.model';
+import { Lang } from '../../../../both/models/lang.model';
 
 import template from './packs-form.component.html';
 
 @Component({
   selector: 'packs-form',
-  template,
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  template
 })
 export class PacksFormComponent extends MeteorComponent implements OnInit {
   addForm: FormGroup;
-  langs: Mongo.Cursor<ILang>;
+  langs: Observable<Lang[]>;
   constructor(private formBuilder: FormBuilder) {
     super();
   }
 
   ngOnInit() {
-    this.langs = Langs.find();
+    this.langs = Langs.find({}).zone();
     this.subscribe('langs', () => {
-      this.langs = Langs.find();
+      this.langs = Langs.find({}).zone();
     }, true);
     console.log('langs', this.langs);
     this.addForm = this.formBuilder.group({
@@ -41,7 +41,7 @@ export class PacksFormComponent extends MeteorComponent implements OnInit {
   addPack() {
     if (this.addForm.valid) {
       if (Meteor.userId()) {
-        let form: IPack = {
+        let form: Pack = {
           _id: this.addForm.value.name,
           langs: [this.addForm.value.lang],
           owner: Meteor.userId(),

@@ -1,5 +1,5 @@
-import {Mongo} from 'meteor/mongo';
+import { MongoObservable } from 'meteor-rxjs';
 
-import {ILang} from '../interfaces/lang.interface';
+import { Lang } from '../models/lang.model';
 
-export const Langs: Mongo.Collection<ILang> = new Mongo.Collection<ILang>('langs');
+export const Langs = new MongoObservable.Collection<Lang>('langs');

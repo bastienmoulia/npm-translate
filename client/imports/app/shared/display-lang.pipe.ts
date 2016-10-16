@@ -3,9 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { MeteorComponent } from 'angular2-meteor';
 
-import { Langs } from '../../../both/collections/langs.collection';
-import { ILang } from '../../../both/interfaces/lang.interface';
-
 @Pipe({
   name: 'displayLang'
 })

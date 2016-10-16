@@ -1,4 +1,4 @@
-export interface ILang {
+export interface Lang {
   _id: string;
   name: string;
 }

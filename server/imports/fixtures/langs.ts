@@ -1,11 +1,12 @@
 import { Langs } from '../../../both/collections/langs.collection';
-import { ILang } from '../../../both/interfaces/lang.interface';
+import { Lang } from '../../../both/models/lang.model';
 import { ENV } from '../../../both/env';
 
 
 export function loadLangs() {
-  if (Langs.find().count() === 0) {
+  if (Langs.find({}).cursor.count() === 0) {
     const env: ENV = new(ENV);
-    env.langs.forEach((lang: ILang) => Langs.insert(lang));
+    console.log("loadLangs", env.langs);
+    env.langs.forEach((lang: Lang) => Langs.insert(lang));
   }
 }

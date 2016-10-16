@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Meteor } from 'meteor/meteor';
 
-import { Packs } from '../../../both/collections/packs.collection';
+import { Packs } from '../../../../both/collections/packs.collection';
 
 import template from './translations-form.component.html';
 
 @Component({
   selector: 'translations-form',
-  template,
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  template
 })
 export class TranslationsFormComponent implements OnInit {
   addForm: FormGroup;

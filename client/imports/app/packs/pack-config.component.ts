@@ -1,30 +1,28 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute, ROUTER_DIRECTIVES, CanActivate } from '@angular/router';
+import { ActivatedRoute, CanActivate } from '@angular/router';
 import { Tracker } from 'meteor/tracker';
 import { MeteorComponent } from 'angular2-meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
-import { Packs } from '../../../both/collections/packs.collection';
-import { IPack } from '../../../both/interfaces/pack.interface';
-import { DisplayLangPipe } from '../shared/display-lang.pipe';
-import { Langs } from '../../../both/collections/langs.collection';
-import { ILang } from '../../../both/interfaces/lang.interface';
+import { Packs } from '../../../../both/collections/packs.collection';
+import { Pack } from '../../../../both/models/pack.model';
+import { Langs } from '../../../../both/collections/langs.collection';
+import { Lang } from '../../../../both/models/lang.model';
 
 import template from './pack-config.component.html';
 
 @Component({
   selector: 'pack-config',
-  template,
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-  pipes: [DisplayLangPipe]
+  template
 })
 @InjectUser('user')
 export class PackConfigComponent extends MeteorComponent implements OnInit, CanActivate {
   packId: string;
-  pack: IPack;
+  pack: Pack;
   user: Meteor.User;
-  langs: Mongo.Cursor<ILang>;
+  langs: Observable<Lang[]>;
   addLangForm: FormGroup;
   constructor(private route: ActivatedRoute, private ngZone: NgZone, private formBuilder: FormBuilder) {
     super();
@@ -50,9 +48,9 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
           });
         });
       });
-    this.langs = Langs.find();
+    this.langs = Langs.find({}).zone();
     this.subscribe('langs', () => {
-      this.langs = Langs.find();
+      this.langs = Langs.find({}).zone();
     }, true);
     this.addLangForm = this.formBuilder.group({
       lang: ['', Validators.required]

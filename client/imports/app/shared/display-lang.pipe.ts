@@ -1,28 +1,33 @@
-import { Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { MeteorComponent } from 'angular2-meteor';
+import { Observable } from 'rxjs/Observable';
+import { MeteorObservable } from 'meteor-rxjs';
+
+import { Langs } from '../../../../both/collections/langs.collection';
+import { Lang } from '../../../../both/models/lang.model';
 
 @Pipe({
   name: 'displayLang'
 })
-export class DisplayLangPipe extends MeteorComponent {
+export class DisplayLangPipe extends MeteorComponent implements PipeTransform {
   constructor() {
     super();
   }
 
   transform(langId: string): any {
-    // console.log('langId', langId);
-    return langId; // TODO
-    /*this.subscribe('langs', () => {
-      console.log('subscribe');
-      const lang: ILang = Langs.findOne({ _id: langId });
-      console.log('lang', lang);
-      if (lang) {
-        return lang.name;
-      } else {
-        return langId;
-      }
-    }, true);*/
+    let langName = new Observable((observer) => {
+      MeteorObservable.subscribe('langs').subscribe(() => {
+        let lang = Langs.findOne({ _id: langId });
+        if (lang) {
+          observer.next(lang.name);
+        } else {
+          observer.next(langId);
+        }
+        observer.complete();
+      });
+    });
+    return langName;
   }
 }

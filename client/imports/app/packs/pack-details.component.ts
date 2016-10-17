@@ -1,9 +1,11 @@
-import { Component, NgZone, OnInit, Inject } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Tracker } from 'meteor/tracker';
+import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Packs } from '../../../../both/collections/packs.collection';
 import { Pack } from '../../../../both/models/pack.model';
@@ -17,9 +19,11 @@ import template from './pack-details.component.html';
   providers: [ENV]
 })
 @InjectUser('user')
-export class PackDetailsComponent extends MeteorComponent implements OnInit {
+export class PackDetailsComponent extends MeteorComponent implements OnInit, OnDestroy {
   packId: string;
+  paramsSub: Subscription;
   pack: Pack;
+  packSub: Subscription;
   isAdmin: boolean;
   user: Meteor.User;
   scope: string;
@@ -31,12 +35,14 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params
+    this.paramsSub = this.route.params
       .map(params => params['packId'])
       .subscribe(packId => {
         this.packId = packId;
-        this.pack = Packs.findOne(this.packId);
-        this.subscribe('packs', () => {
+        if (this.packSub) {
+          this.packSub.unsubscribe();
+        }
+        this.packSub = this.subscribe('packs', () => {
           this.pack = Packs.findOne(this.packId);
           if (this.user && this.user._id === this.pack.owner) {
             this.isAdmin = true;
@@ -49,5 +55,10 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit {
     Meteor.call('publish', this.packId, (err, response) => {
       console.log('publish', err, response);
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSub.unsubscribe;
+    this.packSub.unsubscribe;
   }
 }

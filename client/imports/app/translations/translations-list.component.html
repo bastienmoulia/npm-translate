@@ -6,7 +6,7 @@
   <div>
     <span *ngFor="let lang of langs">
       <input type="checkbox" [(ngModel)]="lang.isDisplay">
-      {{ lang.id | displayLang }}
+      {{ lang.id | displayLang | async }}
     </span>
   </div>
   <table>
@@ -14,7 +14,7 @@
       <th>Key</th>
       <th *ngFor="let lang of langs">
         <span *ngIf="lang.isDisplay">
-          {{ lang.id | displayLang }}
+          {{ lang.id | displayLang | async }}
           <span>{{ lang.progression | percent }}</span>
         </span>
       </th>

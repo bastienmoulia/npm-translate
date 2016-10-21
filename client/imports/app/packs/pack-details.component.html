@@ -1,12 +1,17 @@
 <div>
-  <header>
-    <h2>{{pack ? pack._id : 'No package with this name'}}</h2>
-    <a [routerLink]="['/']">Back</a>
-    <a [routerLink]="['/package', pack._id, 'config']" *ngIf="isAdmin">Configuration</a>
-    <div *ngIf="isAdmin && pack">
-      <code>npm install {{ scope }}/{{ pack._id }}</code>
-      <button (click)="publish()">Publish</button>
+  <md-toolbar>
+    <a md-button [routerLink]="['/']">Back</a>
+    <div class="md-toolbar-tools">
+      <h3>{{pack ? pack._id : 'No package with this name'}}</h3>
     </div>
+  </md-toolbar>
+  <header>
+
+    <a [routerLink]="['/package', pack._id, 'config']" *ngIf="isAdmin">Configuration</a>
+    <md-card *ngIf="isAdmin && pack">
+      <code>npm install {{ scope }}/{{ pack._id }}</code>
+      <button md-raised-button (click)="publish()">Publish</button>
+    </md-card>
   </header>
   <div *ngIf="pack">
     <translations-list></translations-list>

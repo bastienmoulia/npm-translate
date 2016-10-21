@@ -1,12 +1,12 @@
 <div *ngIf="translations">
-  <label>
-    <input type="checkbox" [(ngModel)]="showOnlyMissing">
-    Only display missing tranlations
-  </label>
+  <md-checkbox [(ngModel)]="showOnlyMissing">
+    Only display missing 
+  </md-checkbox>
   <div>
     <span *ngFor="let lang of langs">
-      <input type="checkbox" [(ngModel)]="lang.isDisplay">
+      <md-checkbox type="checkbox" [(ngModel)]="lang.isDisplay">
       {{ lang.id | displayLang | async }}
+      </md-checkbox>
     </span>
   </div>
   <table>
@@ -31,7 +31,7 @@
       </td>
     </tr>
   </table>
-  <button *ngIf="!!user" (click)="save()">Save translations</button>
+  <button md-raised-button color="primary" *ngIf="!!user" (click)="save()">Save translations</button>
 </div>
 <p *ngIf="!translations">No translations</p>
 <translations-form *ngIf="isAdmin"></translations-form>

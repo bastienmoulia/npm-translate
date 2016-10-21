@@ -1,16 +1,15 @@
 <div>
   <packs-form *ngIf="user"></packs-form>
-  <login-buttons></login-buttons>
   <div>
-    <input type="search" placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="updateFilter()">
-    <ul>
-      <li *ngFor="let pack of packsFiltered">
-        <a [routerLink]="['/package', pack._id]">
+    <md-input type="search" placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="updateFilter()"></md-input>
+    <md-list>
+      <md-list-item *ngFor="let pack of packsFiltered">
+        <a md-line [routerLink]="['/package', pack._id]">
           {{pack._id}}
           <span>{{ pack.progression | percent }}</span>
         </a>
-      </li>
-    </ul>
+      </md-list-item>
+    </md-list>
     <!--<p *ngIf="packs.count() !== 0 && packsFiltered.length === 0">No packages with the current filter</p>
     <p *ngIf="packs.count() === 0 | async">No packages</p>-->
   </div>

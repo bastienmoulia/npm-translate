@@ -1,9 +1,10 @@
 <form [formGroup]="addForm" (ngSubmit)="addPack()">
-  <label>Name</label>
-  <input type="text" formControlName="name">
-  <label>Lang</label>
-  <select formControlName="lang">
-    <option *ngFor="let lang of langs | async" [value]="lang._id">{{lang.name}}</option>
-  </select>
-  <button type="submit">Add</button>
+  <fieldset class="form-group">
+    <md-input type="text" formControlName="name" placeholder="Name of the new package"></md-input>
+    <label>Lang</label>
+    <select formControlName="lang">
+      <option *ngFor="let lang of langs | async" [value]="lang._id">{{lang.name}}</option>
+    </select>
+    <button md-raised-button type="submit">Add</button>
+  </fieldset>
 </form>

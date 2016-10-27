@@ -6,6 +6,8 @@ import { MeteorComponent } from 'angular2-meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { MdIconRegistry } from '@angular/material';
+
 
 import { Packs } from '../../../../both/collections/packs.collection';
 import { Pack } from '../../../../both/models/pack.model';
@@ -16,7 +18,7 @@ import template from './pack-details.component.html';
 @Component({
   selector: 'pack-details',
   template,
-  providers: [ENV]
+  providers: [ENV, MdIconRegistry]
 })
 @InjectUser('user')
 export class PackDetailsComponent extends MeteorComponent implements OnInit, OnDestroy {

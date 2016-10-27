@@ -5,6 +5,7 @@ import { MeteorComponent } from 'angular2-meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { MdIconRegistry } from '@angular/material';
 
 import { Packs } from '../../../../both/collections/packs.collection';
 import { Pack } from '../../../../both/models/pack.model';
@@ -15,6 +16,7 @@ import template from './pack-config.component.html';
 
 @Component({
   selector: 'pack-config',
+  providers: [MdIconRegistry],
   template
 })
 @InjectUser('user')

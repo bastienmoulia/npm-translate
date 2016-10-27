@@ -23,7 +23,7 @@
     <tr *ngFor="let translation of translations">
       <td>{{ translation.key }}</td>
       <td *ngFor="let lang of langs">
-        <input *ngIf="lang.isDisplay && !!user" type="text" [(ngModel)]="translation.langs[lang.id]">
+        <md-input *ngIf="lang.isDisplay && !!user" type="text" [(ngModel)]="translation.langs[lang.id]"></md-input>
         <span *ngIf="lang.isDisplay && !user">{{ translation.langs[lang.id] }}</span>
       </td>
       <td *ngIf="isAdmin">

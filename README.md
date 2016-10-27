@@ -31,3 +31,5 @@ NPM translate facilitates the managements of the translation files for developer
 - Login avec twitter FB GitHub
 - Système de proposition de changement de traduction pour les invités
 - Système de validation de changement pour les collaborateurs
+- Faire la vue detail simple en plus de la vue admin (tableau)
+- Enregistrer les langues de l'utilisateurs pour ne lui proposer que des traductions qu'il peut faire

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { Observable } from 'rxjs/Observable';
+import { MdUniqueSelectionDispatcher } from '@angular/material';
 
 import { Packs } from '../../../../both/collections/packs.collection';
 import { Langs } from '../../../../both/collections/langs.collection';
@@ -13,6 +14,7 @@ import template from './packs-form.component.html';
 
 @Component({
   selector: 'packs-form',
+  providers: [MdUniqueSelectionDispatcher],
   template
 })
 export class PacksFormComponent extends MeteorComponent implements OnInit {

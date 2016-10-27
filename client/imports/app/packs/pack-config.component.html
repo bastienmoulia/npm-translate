@@ -1,9 +1,13 @@
 <div *ngIf="pack">
-  <header>
-    <h2>Config</h2>
-    <a [routerLink]="['/package', pack._id]">Back</a>
-  </header>
-  <div>
+  <md-toolbar>
+    <a md-icon-button [routerLink]="['/package', pack._id]">
+      <md-icon>arrow back</md-icon>
+    </a>
+    <div class="md-toolbar-tools">
+      <h3>Config of {{ pack._id }}</h3>
+    </div>
+  </md-toolbar>
+  <section>
     <h3>Langs</h3>
     <ul>
       <li *ngFor="let lang of pack.langs">
@@ -18,5 +22,5 @@
       </select>
       <button md-raised-button type="submit">Add</button>
     </form>
-  </div>
+  </section>
 </div>

@@ -22,10 +22,12 @@ export class PacksListComponent extends MeteorComponent implements OnInit, OnDes
   packsFiltered: Pack[];
   user: Meteor.User;
   filter: string;
+  newPackageOpen: boolean
   constructor() {
     super();
     this.filter = '';
     this.packsFiltered = [];
+    this.newPackageOpen = false;
   }
 
   ngOnInit() {

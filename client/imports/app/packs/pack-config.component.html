@@ -11,7 +11,7 @@
     <h3>Langs</h3>
     <ul>
       <li *ngFor="let lang of pack.langs">
-        {{ lang | displayLang }}
+        {{ lang | displayLang | async }}
         <button *ngIf="pack.langs.length > 1" (click)="delete(lang)">x</button>
       </li>
     </ul>
@@ -20,6 +20,11 @@
       <select formControlName="lang">
         <option *ngFor="let lang of langs | async" [value]="lang._id">{{lang.name}}</option>
       </select>
+      <button md-raised-button type="submit">Add</button>
+    </form>
+    <h3>Update main JSON file</h3>
+    <form [formGroup]="addJsonForm" (ngSubmit)="addJson()">
+      <input formControlName="jsonFile" type="file" accept=".json" (change)="fileChangeEvent($event)">
       <button md-raised-button type="submit">Add</button>
     </form>
   </section>

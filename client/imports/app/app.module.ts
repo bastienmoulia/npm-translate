@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { MaterialModule } from '@angular/material';
+import { TranslateModule } from 'ng2-translate';
+
 
 import { AppComponent } from './app.component';
 import { PACKS_DECLARATIONS } from './packs';
@@ -35,7 +37,8 @@ import { routes } from './app.routes';
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     AccountsModule,
-    MaterialModule
+    MaterialModule,
+    TranslateModule.forRoot()
   ],
   // Main Component
   bootstrap: [ AppComponent ]

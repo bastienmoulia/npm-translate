@@ -1,18 +1,9 @@
 <section>
   <div>
-    <button md-raised-button (click)="newPackageOpen = !newPackageOpen" *ngIf="user && !newPackageOpen">Add a new package</button>
+    <button md-raised-button (click)="newPackageOpen = !newPackageOpen" *ngIf="user && !newPackageOpen">{{ 'ADD_NEW_PACKAGE' | translate }}</button>
     <packs-form *ngIf="user && newPackageOpen"></packs-form>
   </div>
   <md-input type="search" placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="updateFilter()"></md-input>
-  <md-list>
-    <md-list-item *ngFor="let pack of packsFiltered">
-      <a md-line [routerLink]="['/package', pack._id]">
-        {{pack._id}}
-        <span>{{ pack.progression | percent }}</span>
-      </a>
-      <md-progress-bar mode="determinate" value="{{ pack.progression * 100 }}"></md-progress-bar>
-    </md-list-item>
-  </md-list>
   <a md-line [routerLink]="['/package', pack._id]" *ngFor="let pack of packsFiltered">
     <md-card>
       <md-card-content>
@@ -23,6 +14,6 @@
       </md-card-footer>
     </md-card>
   </a>
-  <!--<p *ngIf="packs.count() !== 0 && packsFiltered.length === 0">No packages with the current filter</p>
-  <p *ngIf="packs.count() === 0 | async">No packages</p>-->
+  <!--<p *ngIf="allPacks.count() !== 0 && packsFiltered.length === 0">No packages with the current filter</p>
+  <p *ngIf="allPacks.count() === 0 | async">No packages</p>-->
 </section>

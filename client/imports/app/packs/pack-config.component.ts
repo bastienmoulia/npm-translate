@@ -26,6 +26,8 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
   user: Meteor.User;
   langs: Observable<Lang[]>;
   addLangForm: FormGroup;
+  addJsonForm: FormGroup;
+  file: Blob;
   constructor(private route: ActivatedRoute, private ngZone: NgZone, private formBuilder: FormBuilder) {
     super();
   }
@@ -57,6 +59,9 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
     this.addLangForm = this.formBuilder.group({
       lang: ['', Validators.required]
     });
+    this.addJsonForm = this.formBuilder.group({
+      jsonFile: ['', Validators.required]
+    });
     // TODO ne pas afficher les langues déjà choisies
   }
 
@@ -77,5 +82,27 @@ export class PackConfigComponent extends MeteorComponent implements OnInit, CanA
         $set: {langs: this.pack.langs }
       });
     }
+  }
+
+  addJson() {
+    console.log("addJson");
+    let reader = new FileReader();
+
+    reader.onload = ((theFile) => {
+      return (e) => {
+        console.log("result", JSON.parse(e.target.result));
+
+        // TODO compare new JSON with old translations
+        // display number of added, editted and deleted fields
+        // confirm
+      }
+    })(this.file);
+
+    reader.readAsText(this.file);
+  }
+
+  fileChangeEvent(fileInput: any) {
+    console.log(fileInput);
+    this.file = fileInput.target.files[0];
   }
 }

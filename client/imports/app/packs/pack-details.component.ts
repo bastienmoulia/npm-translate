@@ -7,7 +7,7 @@ import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { MdIconRegistry } from '@angular/material';
-
+import { MeteorObservable } from 'meteor-rxjs';
 
 import { Packs } from '../../../../both/collections/packs.collection';
 import { Pack } from '../../../../both/models/pack.model';
@@ -44,7 +44,7 @@ export class PackDetailsComponent extends MeteorComponent implements OnInit, OnD
         if (this.packSub) {
           this.packSub.unsubscribe();
         }
-        this.packSub = this.subscribe('packs', () => {
+        this.packSub = MeteorObservable.subscribe('packs').subscribe(() => {
           this.pack = Packs.findOne(this.packId);
           if (this.user && this.user._id === this.pack.owner) {
             this.isAdmin = true;

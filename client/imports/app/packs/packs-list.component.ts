@@ -19,6 +19,7 @@ import template from './packs-list.component.html';
 export class PacksListComponent extends MeteorComponent implements OnInit, OnDestroy {
   packs: Observable<Pack[]>;
   packsSub: Subscription;
+  allPacks: Pack[];
   packsFiltered: Pack[];
   user: Meteor.User;
   filter: string;
@@ -26,6 +27,7 @@ export class PacksListComponent extends MeteorComponent implements OnInit, OnDes
   constructor() {
     super();
     this.filter = '';
+    this.allPacks = [];
     this.packsFiltered = [];
     this.newPackageOpen = false;
   }
@@ -34,15 +36,17 @@ export class PacksListComponent extends MeteorComponent implements OnInit, OnDes
     this.packsSub = MeteorObservable.subscribe('packs').subscribe(() => {
       this.packs = Packs.find({});
       this.packs.subscribe((packs) => {
-        this.updateFilter(packs);
+        this.allPacks = packs;
+        console.log('allPacks', this.allPacks);
+        this.updateFilter();
         this.updateProgression();
       });
     });
   }
 
-  updateFilter(packs) {
+  updateFilter() {
     this.packsFiltered = [];
-    packs.forEach((pack: Pack) => {
+    this.allPacks.forEach((pack: Pack) => {
       console.log('updateFilter', pack);
       if (pack._id.indexOf(this.filter) !== -1) {
         this.packsFiltered.push(pack);
